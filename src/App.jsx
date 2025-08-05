@@ -1,13 +1,16 @@
 import { useState } from 'react'
+import NavBar from "./Component/NavBar"
+import PortalBodyRoute from './Routes/PortalBodyRoute'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <p className='text-red-600 p-4'>clean up</p>
-    </>
+    <div>
+      <NavBar />
+      <PortalBodyRoute />
+    </div>
   )
 }
 
