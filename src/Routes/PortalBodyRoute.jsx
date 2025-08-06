@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import SuspenseFallbackCompo from "../Pages/SuspenseFallbackCompo";
 
 // lazy loading
 const Home = lazy(() => import("../Pages/Home"));
@@ -14,7 +15,7 @@ const PortalBodyRoute = () => {
     const routeLocation = pathname === "/" ? "Home" : pathname.slice(1);
 
     return (
-        <Suspense fallback={<div><p>Loading {routeLocation}...</p></div>}>
+        <Suspense fallback={<SuspenseFallbackCompo routeLocation={routeLocation} />}>
             <Routes>
                 {/* for the top level routes */}
                 <Route path="">
