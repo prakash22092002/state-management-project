@@ -11,20 +11,28 @@ const NavBar = () => {
     ];
 
     return (
-        <nav className="py-4 px-8 flex justify-between bg-white shadow">
-            <div className="logo"></div>
-            <div className="flex gap-10">
-                {navRoutes.map(({ name, route }, idx) => (
-                    <NavLink
-                        key={idx}
-                        to={route}
-                        className={({ isActive }) =>
-                            ` ${isActive ? "text-red-500" : "text-gray-500"}`
-                        }
-                    >
-                        {name}
-                    </NavLink>
-                ))}
+        <nav className="py-4 px-4 sm:px-8 bg-white bg-white/30 backdrop-blur-md shadow-none">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                {/* Logo or Brand */}
+                <div className="text-xl ">
+                    Portal <span className=" text-red-500">Dashboard</span>
+                </div>
+
+                {/* Navigation Links */}
+                <div className="flex flex-wrap gap-4 sm:gap-8">
+                    {navRoutes.map(({ name, route }, idx) => (
+                        <NavLink
+                            key={idx}
+                            to={route}
+                            className={({ isActive }) =>
+                                `text-sm font-medium transition-colors duration-200 ${isActive ? "text-red-500" : "text-gray-400 hover:text-red-300"
+                                }`
+                            }
+                        >
+                            {name}
+                        </NavLink>
+                    ))}
+                </div>
             </div>
         </nav>
     );
