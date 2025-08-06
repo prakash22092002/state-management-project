@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 // lazy loading
@@ -8,16 +8,24 @@ const Cart = lazy(() => import("../Pages/Cart"));
 const Products = lazy(() => import("../Pages/Products"));
 
 const PortalBodyRoute = () => {
+
+    // for the suspence loading state
+    const { pathname } = useLocation();
+    const routeLocation = pathname === "/" ? "Home" : pathname.slice(1);
+
     return (
-        <Routes>
-            {/* for the top level routes */}
-            <Route path="">
-                <Route index element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/cart" element={<Cart />} />
-            </Route>
-        </Routes>
+        <Suspense fallback={<div><p>Loading {routeLocation}...</p></div>}>
+            <Routes>
+                {/* for the top level routes */}
+                <Route path="">
+                    <Route index element={<Home />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/cart" element={<Cart />} />
+                </Route>
+            </Routes>
+        </Suspense>
+
     )
 };
 
