@@ -12,15 +12,15 @@ const NavBar = () => {
         <nav className="py-4 px-8 flex justify-between bg-white shadow">
             <div className="logo"></div>
             <div className="flex gap-10">
-                {navRoutes.map((el, idx) => (
+                {navRoutes.map(({ name, route }, idx) => (
                     <NavLink
                         key={idx}
-                        to={el.route}
+                        to={route}
                         className={({ isActive }) =>
                             ` ${isActive ? "text-red-500" : "text-gray-500"}`
                         }
                     >
-                        {el.name}
+                        {name}
                     </NavLink>
                 ))}
             </div>
