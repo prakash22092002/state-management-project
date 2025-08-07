@@ -1,7 +1,7 @@
 
 const SuspenseFallbackCompo = ({ routeLocation }) => {
     return (
-        <div className="p-5 text-center">
+        <div className="py-10 text-center text-gray-400">
             <p>Loading {routeLocation}...</p>
         </div>
     )
