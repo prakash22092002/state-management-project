@@ -6,7 +6,7 @@ const Orders = () => {
 
     const orderListViewTableData = [
         {
-            columnName: "Order ID",
+            columnName: "ID",
             keyName: "id",
             styling: "flex-[0.5] truncate",
         },
