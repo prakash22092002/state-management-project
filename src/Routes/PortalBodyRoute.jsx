@@ -4,11 +4,16 @@ import SuspenseFallbackCompo from "../Pages/SuspenseFallbackCompo";
 
 // lazy loading
 const Home = lazy(() => import("../Pages/Home"));
-const Dashboard = lazy(() => import("../Pages/Dashboard"))
+const Dashboard = lazy(() => import("../Pages/Dashboard"));
 const Products = lazy(() => import("../Pages/Products"));
-const Orders = lazy(() => import("../Pages/Orders"))
-const Customers = lazy(() => import("../Pages/Customers"))
+const Orders = lazy(() => import("../Pages/Orders"));
+const Customers = lazy(() => import("../Pages/Customers"));
 const About = lazy(() => import("../Pages/About"));
+
+// lazy loading sub routes
+const ProductDetails = lazy(() => import("../Pages/ProductDetail"));
+const OrderDetails = lazy(() => import("../Pages/OrderDetails"))
+const CustomerDetails = lazy(() => import("../Pages/CustomerDetails"))
 
 const PortalBodyRoute = () => {
 
@@ -23,9 +28,25 @@ const PortalBodyRoute = () => {
                 <Route path="">
                     <Route index element={<Home />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/orders" element={<Orders />} />
-                    <Route path="/customers" element={<Customers />} />
+
+                    {/* products route */}
+                    <Route path="/products">
+                        <Route index element={<Products />} />
+                        <Route path=":id" element={<ProductDetails />} />
+                    </Route>
+
+                    {/* orders route */}
+                    <Route path="/orders">
+                        <Route index element={<Orders />} />
+                        <Route path=":id" element={<OrderDetails />} />
+                    </Route>
+
+                    {/* customers route */}
+                    <Route path="/customers">
+                        <Route index element={<Customers />} />
+                        <Route path=":id" element={<CustomerDetails />} />
+                    </Route>
+
                     <Route path="/about" element={<About />} />
                 </Route>
             </Routes>
