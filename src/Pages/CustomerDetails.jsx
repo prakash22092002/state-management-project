@@ -9,7 +9,7 @@ const CustomerDetails = () => {
 
 
     useEffect(() => {
-        console.log(customerData, "customerData")
+        // console.log(customerData, "customerData")
     }, [customerData])
 
 
