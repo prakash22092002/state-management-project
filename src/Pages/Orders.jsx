@@ -3,7 +3,6 @@ import ListViewTable from "../Component/ListViewTable";
 
 const Orders = () => {
     const { ordersData, ordersDataLoading } = ordersQuery();
-    console.log(ordersData, "ordersData")
 
     const orderListViewTableData = [
         {
