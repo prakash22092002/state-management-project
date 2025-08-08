@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom"
 const customersQuery = () => {
 
     const { pathname } = useLocation();
-    console.log(pathname);
 
     // fetch all customers
     const {
