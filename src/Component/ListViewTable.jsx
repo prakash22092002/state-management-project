@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ListViewTable = ({
     tableData,
@@ -8,8 +8,17 @@ const ListViewTable = ({
     const { pathname } = useLocation();
     const currentPageList = pathname === "/" ? "Home" : pathname.slice(1);
 
+    const navigateTo = useNavigate();
+
+    // function for the event capturing
+    function captureTargetId(e) {
+        const rowDiv = e.target.closest('[data-id]');
+        const rowId = rowDiv.dataset.id;
+        navigateTo(`${rowId}`)
+    }
+
     return (
-        <section className="sm:px-8 m-auto my-8">
+        <section className="text-sm sm:px-8 m-auto my-8">
             {/* Table container with horizontal scroll only for table */}
             <div className="overflow-x-auto border rounded-lg shadow-sm">
                 <div className="min-w-[1100px]">
@@ -31,21 +40,29 @@ const ListViewTable = ({
                     )}
 
                     {/* Data Rows */}
-                    {tableData?.map((row, idx) => (
-                        <div
-                            key={idx}
-                            className="flex border-b px-4 py-4 text-gray-400 hover:text-red-500 hover:bg-gray-50 transition-colors cursor-pointer gap-2"
-                        >
-                            {columnConfig?.map((col, idx_row) => {
-                                const value = row[col.keyName];
-                                return (
-                                    <p className={col.styling} key={idx_row}>
-                                        {value}
-                                    </p>
-                                );
-                            })}
-                        </div>
-                    ))}
+                    <div onClick={(e) => captureTargetId(e)}>
+                        {tableData?.map((row, idx) => {
+                            return (
+                                <div
+                                    key={idx}
+                                    className="flex border-b px-4 py-4 text-gray-400 hover:text-red-500 hover:bg-gray-50 transition-colors cursor-pointer gap-2"
+                                    data-id={row.id}
+                                >
+                                    {columnConfig?.map((col, idx_row) => {
+                                        const value = row[col.keyName];
+                                        return (
+                                            <p
+                                                className={col.styling}
+                                                key={idx_row}
+                                            >
+                                                {value}
+                                            </p>
+                                        );
+                                    })}
+                                </div>
+                            )
+                        })}
+                    </div>
 
                 </div>
             </div>
