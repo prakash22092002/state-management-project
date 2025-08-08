@@ -1,8 +1,8 @@
-import usersQuery from "../Queries/usersQuery"
+import customersQuery from "../Queries/customersQuery";
 import ListViewTable from "../Component/ListViewTable";
 
 const Customers = () => {
-    const { usersData, usersDataLoading } = usersQuery();
+    const { customersData, customersDataLoading } = customersQuery();
 
     const customerListViewTableData = [
         {
@@ -44,11 +44,11 @@ const Customers = () => {
 
 
     return (
-        <section className="users-section">
+        <section className="customers-section">
             {/* this is the list table component dynamic */}
             <ListViewTable
-                tableData={usersData}
-                isLoading={usersDataLoading}
+                tableData={customersData}
+                isLoading={customersDataLoading}
                 columnConfig={customerListViewTableData}
             />
         </section>

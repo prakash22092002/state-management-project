@@ -31,8 +31,8 @@ const Orders = () => {
             styling: "flex-[1.5] truncate after:content-['_USD']",
         },
         {
-            columnName: "User ID",
-            keyName: "user_id",
+            columnName: "Customer ID",
+            keyName: "customer_id",
             styling: "flex-[1] truncate",
         },
         {
