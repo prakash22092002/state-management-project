@@ -86,10 +86,15 @@ const Customers = () => {
                 {/* Left Side: Filter Button + Active Filters */}
                 <div className="flex items-center">
                     <p
-                        className="bg-gray-400 text-gray-50 inline-block px-4 py-1 text-sm rounded-md cursor-pointer"
+                        className="relative  bg-gray-400 text-gray-50 inline-block px-4 py-1 text-sm rounded-md cursor-pointer"
                         onClick={handleFilterToggle}
                     >
                         Add Filter
+                        {
+                            customerLocationActiveFilter.length > 0 && (
+                                <span className="absolute text-[8px] bg-gray-500 w-[20px] h-[20px] text-center rounded-full -top-2 -right-2">{customerLocationActiveFilter.length}</span>
+                            )
+                        }
                     </p>
 
                     {/* Filter Options Dropdown */}
