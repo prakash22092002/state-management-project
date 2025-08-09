@@ -26,8 +26,6 @@ const Customers = () => {
         setCustomersData(customersData || []);
     }, [customersData, setCustomersData]);
 
-    console.log(customers, "customers")
-
     const customerListViewTableData = [
         { columnName: "ID", keyName: "id", styling: "flex-[0.5] truncate" },
         { columnName: "First Name", keyName: "first_name", styling: "flex-[1.5] truncate" },
