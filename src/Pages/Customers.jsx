@@ -99,7 +99,7 @@ const Customers = () => {
                     >
                         {customerLocationActiveFilter.map((el, idx) => (
                             <button
-                                className="text-sm text-gray-100 bg-gray-800 pl-3 pr-5 py-1 rounded-md hover:bg-red-500 transition-all ease-out cursor-pointer transition-colors duration-300 ease-in-out"
+                                className="text-sm text-gray-100 bg-gray-800 pl-3 pr-5 py-1 rounded-md hover:bg-red-500 cursor-pointer transition-colors duration-300 ease-in-out"
                                 key={idx}
                                 data-name={el}
                             >
