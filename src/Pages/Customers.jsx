@@ -1,10 +1,11 @@
 import customersQuery from "../Queries/customersQuery";
 import ListViewTable from "../Component/ListViewTable";
 import useCustomerStore from "../Store/useCustomerStore";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Customers = () => {
     const { customersData, customersDataLoading } = customersQuery();
+    const customerNameSearchRef = useRef("");
 
     const {
         customers,
@@ -16,13 +17,16 @@ const Customers = () => {
         customerLocationFilterOptions,
         removeSingleActiveUser,
         clearAllActiveUserFilter,
-        updateOriginalCustomerData
+        updateOriginalCustomerData,
+        setFilterCustomerFirstName
     } = useCustomerStore();
 
     useEffect(() => {
         updateOriginalCustomerData(customersData || [])
         setCustomersData(customersData || []);
     }, [customersData, setCustomersData]);
+
+    console.log(customers, "customers")
 
     const customerListViewTableData = [
         { columnName: "ID", keyName: "id", styling: "flex-[0.5] truncate" },
@@ -54,9 +58,29 @@ const Customers = () => {
             {/* Header */}
             <div className="flex justify-between items-center py-4 px-6 border-b border-gray-200">
                 <h2 className="text-xl font-semibold text-gray-600">Customers</h2>
-                <button className="bg-gray-900 text-gray-200 py-2 px-4 rounded-md hover:bg-gray-800 transition text-sm">
-                    + Create Customer
-                </button>
+
+                <div className=" flex gap-8">
+                    <div className="flex items-center px-2">
+                        <input
+                            type="text"
+                            className={`
+                                text-sm h-0 px-2 py-4  rounded-md border 
+                                ${customers.length > 0
+                                    ? "text-gray-400 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:text-gray-600"
+                                    : "text-red-400 border-red-400 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 focus:text-red-600 "
+                                }
+                              
+                            `}
+                            placeholder="Search By Name"
+                            onChange={(e) => setFilterCustomerFirstName(e.target.value)}
+                        />
+
+                    </div>
+
+                    <button className="bg-gray-900 text-gray-200 py-2 px-4 rounded-md hover:bg-gray-800 transition text-sm">
+                        + Create Customer
+                    </button>
+                </div>
             </div>
 
             {/* Filter */}
