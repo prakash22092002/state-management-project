@@ -105,7 +105,7 @@ const useCustomerStore = create((set) => {
         },
 
 
-        // filtering of the data
+        // filtering of the data by first name search
         filterCustomerFirstNameData: "",
         setFilterCustomerFirstName: (value) => {
 
