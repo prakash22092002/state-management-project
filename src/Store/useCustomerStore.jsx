@@ -133,6 +133,16 @@ const useCustomerStore = create((set) => {
             debounceSearch(value)
 
 
+        },
+
+
+        // create cutomer modal section
+        displayCreateCustomerModal: false,
+
+        setDisplayCreateCustomerModal: () => {
+            set((state) => {
+                return { displayCreateCustomerModal: !state.displayCreateCustomerModal }
+            })
         }
 
 
