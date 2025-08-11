@@ -11,6 +11,7 @@ const customersQuery = () => {
         data: customersData,
         isLoading: customersDataLoading,
         error: customersDataError,
+        refetch: refetchCustomersData,
     } = useQuery({
         queryKey: ['customers'],
         queryFn: () => fetchingApi(`https://6892dc21c49d24bce868893a.mockapi.io/portal/customers`),
@@ -33,6 +34,7 @@ const customersQuery = () => {
         customersData,
         customersDataLoading,
         customersDataError,
+        refetchCustomersData,
         customerData,
         customerDataLoading,
         customerDataError
