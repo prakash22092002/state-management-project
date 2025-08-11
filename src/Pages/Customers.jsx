@@ -1,10 +1,11 @@
 import customersQuery from "../Queries/customersQuery";
 import ListViewTable from "../Component/ListViewTable";
 import useCustomerStore from "../Store/useCustomerStore";
+import CreateCustomerModal from "../Component/CustomerComponent/createCustomerModal";
 import { useEffect, useRef } from "react";
 
 const Customers = () => {
-    const { customersData, customersDataLoading } = customersQuery();
+    const { customersData, customersDataLoading, refetchCustomersData } = customersQuery();
     const customerNameSearchRef = useRef("");
 
     const {
@@ -18,7 +19,9 @@ const Customers = () => {
         removeSingleActiveUser,
         clearAllActiveUserFilter,
         updateOriginalCustomerData,
-        setFilterCustomerFirstName
+        setFilterCustomerFirstName,
+        displayCreateCustomerModal,
+        setDisplayCreateCustomerModal
     } = useCustomerStore();
 
     useEffect(() => {
@@ -53,6 +56,17 @@ const Customers = () => {
                 }
             }}
         >
+
+            {/* Create Customer Modal */}
+
+            {
+                displayCreateCustomerModal && (
+                    <CreateCustomerModal setDisplayCreateCustomerModal={setDisplayCreateCustomerModal} refetchCustomersData={refetchCustomersData} />
+                )
+            }
+
+
+
             {/* Header */}
             <div className="flex justify-between items-center py-4 px-6 border-b border-gray-200">
                 <h2 className="text-xl font-semibold text-gray-600">Customers</h2>
@@ -75,7 +89,10 @@ const Customers = () => {
 
                     </div>
 
-                    <button className="bg-gray-900 text-gray-200 py-2 px-4 rounded-md hover:bg-gray-800 transition text-sm">
+                    <button
+                        onClick={() => setDisplayCreateCustomerModal()}
+                        className="bg-gray-900 text-gray-200 py-2 px-4 rounded-md hover:bg-gray-800 transition text-sm"
+                    >
                         + Create Customer
                     </button>
                 </div>
