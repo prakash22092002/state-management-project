@@ -2,18 +2,19 @@ import { useState } from "react";
 import { createNewCustomer } from "../../utils/api";
 import { currentDate } from "../../utils/helper";
 import customersQuery from "../../Queries/customersQuery";
+import { editPartucularCustomer } from "../../utils/api";
 
-const CreateCustomerModal = ({ setDisplayCreateCustomerModal, refetchCustomersData }) => {
+const CreateCustomerModal = ({ setDisplayCreateCustomerModal, refetchCustomersData, editCustomer }) => {
 
     const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
-        email: "",
-        city: "",
-        stateCode: "",
-        phone: "",
-        created_at: "",
-        total_orders: []
+        first_name: editCustomer?.first_name ?? "",
+        last_name: editCustomer?.last_name ?? "",
+        email: editCustomer?.email ?? "",
+        city: editCustomer?.location?.split(', ')[0] ?? "",
+        stateCode: editCustomer?.location?.split(', ')[1] ?? "",
+        phone: editCustomer?.phone ?? "",
+        created_at: editCustomer?.created_at ?? "",
+        total_orders: editCustomer?.total_orders ?? []
     });
 
     const handleChange = (e) => {
@@ -37,7 +38,14 @@ const CreateCustomerModal = ({ setDisplayCreateCustomerModal, refetchCustomersDa
         }
 
         // Call parent handler or API
-        await createNewCustomer(payload)
+
+        // here we are checking conditionally if the data for the edit customer present then edit else create
+        if (editCustomer?.id === undefined) {
+            await createNewCustomer(payload)
+        }
+        else {
+            await editPartucularCustomer(editCustomer?.id, payload)
+        }
         await refetchCustomersData()
 
         // Close modal after create
@@ -45,11 +53,11 @@ const CreateCustomerModal = ({ setDisplayCreateCustomerModal, refetchCustomersDa
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed z-[100] inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
             <div className="bg-white w-[500px] rounded-lg shadow-lg p-6 animate-fadeIn">
                 {/* Title */}
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Create New Customer
+                    {editCustomer?.id ? "Edit Customer" : "Create New Customer"}
                 </h2>
 
                 {/* Form */}
@@ -136,7 +144,7 @@ const CreateCustomerModal = ({ setDisplayCreateCustomerModal, refetchCustomersDa
                             type="submit"
                             className="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700"
                         >
-                            Create
+                            {editCustomer?.id ? "Edit" : "Create"}
                         </button>
                     </div>
                 </form>

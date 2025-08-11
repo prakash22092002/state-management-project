@@ -2,11 +2,15 @@ import customersQuery from "../Queries/customersQuery";
 import ListViewTable from "../Component/ListViewTable";
 import useCustomerStore from "../Store/useCustomerStore";
 import CreateCustomerModal from "../Component/CustomerComponent/createCustomerModal";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { deleteParticualrCustomer } from "../utils/api";
 
 const Customers = () => {
     const { customersData, customersDataLoading, refetchCustomersData } = customersQuery();
     const customerNameSearchRef = useRef("");
+    const [editCustomer, setEditCustomer] = useState("")
+
+    const [deleteCustomer, setDeleteCustomer] = useState("")
 
     const {
         customers,
@@ -28,6 +32,22 @@ const Customers = () => {
         updateOriginalCustomerData(customersData || [])
         setCustomersData(customersData || []);
     }, [customersData, setCustomersData]);
+
+    // if the edit customer button trigers
+    useEffect(() => {
+        if (editCustomer) {
+            setDisplayCreateCustomerModal(true); // explicitly open
+        }
+    }, [editCustomer]);
+
+    useEffect(() => {
+        if (!deleteCustomer) return;
+        deleteParticualrCustomer(deleteCustomer.id)
+            .then(() => refetchCustomersData())
+            .catch((err) => console.log(err))
+    }, [deleteCustomer]);
+
+    // if the delete customer button triggers
 
     const customerListViewTableData = [
         { columnName: "ID", keyName: "id", styling: "flex-[0.5] truncate" },
@@ -58,14 +78,15 @@ const Customers = () => {
         >
 
             {/* Create Customer Modal */}
-
             {
                 displayCreateCustomerModal && (
-                    <CreateCustomerModal setDisplayCreateCustomerModal={setDisplayCreateCustomerModal} refetchCustomersData={refetchCustomersData} />
+                    <CreateCustomerModal
+                        setDisplayCreateCustomerModal={setDisplayCreateCustomerModal}
+                        refetchCustomersData={refetchCustomersData}
+                        editCustomer={editCustomer}
+                    />
                 )
             }
-
-
 
             {/* Header */}
             <div className="flex justify-between items-center py-4 px-6 border-b border-gray-200">
@@ -90,7 +111,10 @@ const Customers = () => {
                     </div>
 
                     <button
-                        onClick={() => setDisplayCreateCustomerModal()}
+                        onClick={() => {
+                            setEditCustomer("");
+                            setDisplayCreateCustomerModal(true); // explicitly open
+                        }}
                         className="bg-gray-900 text-gray-200 py-2 px-4 rounded-md hover:bg-gray-800 transition text-sm"
                     >
                         + Create Customer
@@ -117,7 +141,7 @@ const Customers = () => {
                     {/* Filter Options Dropdown */}
                     {showCustomerFilterDropDown && (
                         <div
-                            className="absolute top-12 mt-1 w-[200px] max-h-[250px] bg-gray-50 rounded-lg border border-gray-300 overflow-auto"
+                            className="absolute z-[100] top-12 mt-1 w-[200px] max-h-[250px] bg-gray-50 rounded-lg border border-gray-300 overflow-auto"
                             onClick={(e) => filterEventClick(e)}
                         >
                             {customerLocationFilterOptions.map((el, idx) => (
@@ -166,6 +190,8 @@ const Customers = () => {
 
             {/* Table */}
             <ListViewTable
+                onEdit={setEditCustomer}
+                onDelete={setDeleteCustomer}
                 tableData={customers}
                 isLoading={customersDataLoading}
                 columnConfig={customerListViewTableData}

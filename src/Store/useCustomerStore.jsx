@@ -139,14 +139,11 @@ const useCustomerStore = create((set) => {
         // create cutomer modal section
         displayCreateCustomerModal: false,
 
-        setDisplayCreateCustomerModal: () => {
+        setDisplayCreateCustomerModal: (value) => {
             set((state) => {
-                return { displayCreateCustomerModal: !state.displayCreateCustomerModal }
+                return { displayCreateCustomerModal: value }
             })
         }
-
-
-
 
     }
 }
