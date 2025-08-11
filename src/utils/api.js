@@ -11,6 +11,16 @@ export async function fetchingApi(ENDPOINT) {
     }
 }
 
+export async function getCustomerData(CUSTOMERID) {
+    try {
+        const customerDataFetching = await fetch(`https://6892dc21c49d24bce868893a.mockapi.io/portal/customers/${CUSTOMERID}`);
+        const response = await customerDataFetching.json();
+        return response
+    }
+    catch (err) {
+        console.error(err)
+    }
+}
 
 
 // create new customer
