@@ -28,7 +28,7 @@ const pieData = [
     { name: "Completed", value: 40 },
     { name: "Pending", value: 15 },
     { name: "Cancelled", value: 10 },
-    { name: "Returned", value: 5 },
+    { name: "Returned", value: 0 },
 ];
 
 const COLORS = ["#4f46e5", "#3b82f6", "#10b981", "#ef4444"];
